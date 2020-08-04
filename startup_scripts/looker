@@ -50,7 +50,7 @@ start() {
     echo $$ > ${LOCKFILE}
 
     fixcrypt
-    java \
+    /usr/bin/java \
   -XX:+UseG1GC -XX:MaxGCPauseMillis=2000 -XX:MaxMetaspaceSize=$METAMEM \
   -Xms$JAVAMEM -Xmx$JAVAMEM \
   -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps \
@@ -94,7 +94,7 @@ stop() {
             kill -0 $pid && kill -9 $pid
         fi
     else
-        timeout 20 java -jar looker.jar stop
+        timeout 20 /usr/bin/java -jar looker.jar stop
         if [ $? -ne 0 ]; then
             kill -9 $pid
         fi
@@ -138,7 +138,7 @@ case "$1" in
         fi
         ;;
   *)
-        java -jar looker.jar $*
+        /usr/bin/java -jar looker.jar $*
         ;;
 esac
 
